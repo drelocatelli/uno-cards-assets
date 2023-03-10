@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mau-mau cards</title>
+</head>
+<body>
+    <div id="app">
+        <div id="numeric-cards">
+            <h1>Numeric cards:</h1>
+        </div>
+        <div id="special-card">
+            <h1>Special Cards</h1>
+            <div id="special-block-card"></div>
+            <div id="special-2-card"></div>
+            <div id="special-revert-card"></div>
+            <div id="special-others"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+*{font-family: sans-serif;}
+#app {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+}
+</style>
+
+<script>
+    const app = document.querySelector('#app');
+
+    class ShowCards {
+        colors = ["red", "blue", "green", "yellow"];
+        path = 'assets';
+        
+        constructor() {
+            Object.getOwnPropertyNames(Object.getPrototypeOf(this))
+            .filter(f => !f.includes('constructor') && typeof this[f] === 'function')
+            .forEach(propName => this[propName]());
+        }
+
+        addCardToDOM() {
+            const cards = document.createElement('div');
+            let card = 1;
+            while(card <= 7) {
+                this.colors.forEach((color, i) => {
+                    const img = document.createElement('img');
+                    img.src = this.path.concat(`/${card}_card_${color}.png`);
+                    cards.appendChild(img);
+                });
+                cards.appendChild(document.createElement('br'));
+                card++;
+            }
+            app.querySelector('#numeric-cards').appendChild(cards);
+        }
+
+        addSpecial2CardToDOM() {
+            const cards = document.createElement('div');
+            this.colors.forEach((color, i) => {
+                const img = document.createElement('img');
+                img.src = this.path.concat(`/special_2_card_${color}.png`);
+                cards.appendChild(img);
+            });
+            cards.appendChild(document.createElement('br'));
+            app.querySelector('#special-card #special-2-card').appendChild(cards);
+        }
+
+        addSpecialBlockCardToDOM() {
+            const cards = document.createElement('div');
+            this.colors.forEach((color, i) => {
+                const img = document.createElement('img');
+                img.src = this.path.concat(`/special_block_card_${color}.png`);
+                cards.appendChild(img);
+            });
+            cards.appendChild(document.createElement('br'));
+            app.querySelector('#special-card #special-block-card').appendChild(cards);
+        }
+
+        addSpecialRevertCardToDOM() {
+            const cards = document.createElement('div');
+            this.colors.forEach((color, i) => {
+                const img = document.createElement('img');
+                img.src = this.path.concat(`/special_revert_card_${color}.png`);
+                cards.appendChild(img);
+            });
+            cards.appendChild(document.createElement('br'));
+            app.querySelector('#special-card #special-revert-card').appendChild(cards);
+        }
+
+        addSpecialOthers() {
+            const cards = document.createElement('div');
+            const img = document.createElement('img');
+            img.src = this.path.concat('/special_colorful_card.png');
+            const img2 = document.createElement('img');
+            img2.src = this.path.concat('/special_4_card.png');
+            cards.appendChild(img);
+            cards.appendChild(img2);
+            app.querySelector('#special-card #special-revert-card').appendChild(cards);
+
+        }
+        
+    }
+
+    new ShowCards();
+</script>
